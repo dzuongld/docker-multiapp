@@ -10,7 +10,7 @@ function App() {
             <div className="App">
                 <header className="App-header">
                     <Link to="/">Home</Link>
-                    <Link to="/other">Other</Link>
+                    <Link to="/other">OtherPage</Link>
                 </header>
                 <div>
                     <Route exact path="/" component={Fib} />
