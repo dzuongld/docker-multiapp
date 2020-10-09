@@ -1,0 +1,48 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "volumes": [{
+            "name": "php-app",
+            "host": {
+                "sourcePath": "/var/app/current/php-app"
+            }
+        },
+        {
+            "name": "nginx-proxy-conf",
+            "host": {
+                "sourcePath": "/var/app/current/proxy/conf.d"
+            }
+        }
+    ],
+    "containerDefinitions": [{
+            "name": "client",
+            "image": "dzuongld/docker-multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "dzuongld/docker-multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "dzuongld/docker-multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "dzuongld/docker-multi-nginx",
+            "essential": true,
+            "memory": 128,
+            "portMappings": [{
+                "hostPort": 80,
+                "containerPort": 80
+            }],
+            "links": [
+                "client", "server"
+            ]
+        }
+    ]
+}
